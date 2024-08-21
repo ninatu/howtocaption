@@ -1,5 +1,5 @@
 # HowToCaption #
-HowToCaption: Prompting LLMs to Transform Video Annotations at Scale  
+HowToCaption: Prompting LLMs to Transform Video Annotations at Scale, ECCV 24  
 [arxiv](https://arxiv.org/pdf/2310.04900.pdf)
 
 
