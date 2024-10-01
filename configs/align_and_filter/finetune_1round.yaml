@@ -1,0 +1,116 @@
+arch:
+  type: BlipVTDecoderModel
+  args:
+    vit: 'base'
+    init_from_pretrained: 'https://storage.googleapis.com/sfr-vision-language-research/BLIP/models/model_base_capfilt_large.pth'
+    med_config: configs/med_config.json
+    tie_encoder_decoder_weights: true
+
+    train_contrastive: true
+    train_captioning: false
+    alpha: 0.6
+    train_max_text_length: 32
+    queue_size: 2048
+    continual_learning_weight: 0.1
+
+train_data_loader:
+  - type: VideoDataLoader
+    args:
+      dataset_type: HowTo100M
+      dataset_args:
+#        meta_info_path: data/howto100m/meta_width_height.pickle # optional: put path to dict with width/height of videos to speed up data reading
+#        captions_are_zipped: True
+
+        csv: data/howto100m/video_path_filtered.csv
+        video_root: data/howto100m/videos
+        caption_path: TODO # FIXME: put path to initial alignment
+        num_frames: 4
+      prefetch_factor: 1
+      num_workers: 16
+      batch_size: 128
+      split: 'train'
+      transform: train
+
+valid_data_loader:
+- type: VideoDataLoader
+  args:
+    dataset_type: MSRVTT
+    dataset_args:
+      data_root: data/msrvtt
+      num_frames: 12
+      max_text_length: 32
+      cut: jsfusion
+    num_workers: 16
+    batch_size: 32
+    split: test
+    transform: 'test'
+
+
+- type: VideoDataLoader
+  args:
+    dataset_type: YouCook2
+    dataset_args:
+      data_root: data/youcook
+      num_frames: 12
+      max_text_length: 32
+    num_workers: 16
+    batch_size: 32
+    split: val
+    transform: 'test'
+
+- type: VideoDataLoader
+  args:
+    dataset_type: MSVD
+    dataset_args:
+      data_root: data/msvd
+      num_frames: 12
+      max_text_length: 32
+      multi_sentence_per_video: true
+    num_workers: 16
+    batch_size: 32
+    split: test
+    transform: 'test'
+
+
+- type: VideoDataLoader
+  args:
+    dataset_type: LSMDC
+    dataset_args:
+      data_root: data/lsmdc
+      num_frames: 12
+      max_text_length: 32
+    num_workers: 16
+    batch_size: 32
+    split: test
+    transform: 'test'
+
+
+optimizer:
+  type: AdamW
+  args:
+    lr: 1.0e-06
+    weight_decay: 0.05
+
+save_dir: output
+
+trainer:
+  type: VL_Trainer
+  args:
+    inf_dataloaders: true
+    len_epoch: 500
+    lr_scheduler_update: 'iter'
+    init_retrieval: false
+    save_epochs: [40]
+    epochs: 40
+    save_latest: True
+    save_period: 1000000
+    monitor: 'off'
+    mixed_precision: true
+
+    log_visual_input_at_start: True
+    freq_visual_input: 100000
+    nlp_freq_eval: 100000
+    freq_eval: 100000
+    retrieval_freq_eval: 10
+
+    clip_grad: 20

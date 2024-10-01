@@ -1,0 +1,17 @@
+device: 'cuda'
+
+word_blocks: '200w'
+
+prompt: "I will give you an automatically recognized speech with timestamps from a video segment that is cut from a long video. Write a summary for this video segment. Write only short sentences. Describe only one action per sentence. Keep only actions that happen in the present time. Begin each sentence with an estimated timestamp. Here is this automatically recognized speech: \"{}\"."
+examples: []
+
+model_generate_args:
+  temperature: 0.7
+  do_sample: true
+  max_length: 2048
+  eos_token_id: 2277
+
+batch_processing: true
+batch_size: 6
+
+save_dir: 'output/vicuna'

@@ -1,0 +1,31 @@
+arch:
+  type: BlipVTDecoderModel
+  args:
+    vit: 'base'
+    init_from_pretrained: 'https://storage.googleapis.com/sfr-vision-language-research/BLIP/models/model_base_capfilt_large.pth'
+    med_config: configs/med_config.json
+    tie_encoder_decoder_weights: true
+    train_contrastive: true
+    train_captioning: false
+    alpha: 0.6
+    train_max_text_length: 32
+    queue_size: 2048
+    continual_learning_weight: 0.1
+
+load_weights: pretrained/finetune_1round.pth # FIXME
+
+data_loader:
+  type: VideoDataLoader
+  args:
+    dataset_type: HowTo100M
+    dataset_args:
+      csv: data/howto100m/video_path_filtered.csv
+      video_root: data/howto100m/videos
+      caption_path: data/howto100m/asr_filtered.pickle
+      return_all_frames_1fps: true
+    num_workers: 8
+    batch_size: 1
+    transform: 'test_resize'
+
+save_dir: output/embeddings
+
