@@ -99,7 +99,6 @@ If you're using HowToCaption or HowToCaption-grounded dataset in your research o
 
 ### Licence: 
 
-HowToCaption and HowToCaption-grounded are based on Vicuna and MiniGpt-4 that are fine-tuned LLaMA and should be used under [LLaMA's model license](https://github.com/facebookresearch/llama/blob/main/LICENSE).   
-This repository is under Apache License. 
+HowToCaption and HowToCaption-grounded are based on Vicuna and MiniGpt-4 that are fine-tuned LLaMA and should be used under [LLaMA's model license](https://github.com/facebookresearch/llama/blob/main/LICENSE).
 
 
