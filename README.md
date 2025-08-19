@@ -309,10 +309,11 @@ All other code is licensed under MIT. All license clauses are in the LICENSE fil
 If you use this code in your research, please cite:
 
 ```
-@article{shvetsova2023howtocaption,
-  title={HowToCaption: Prompting LLMs to transform video annotations at scale},
+@inproceedings{shvetsova2024howtocaption,
+  title={Howtocaption: Prompting llms to transform video annotations at scale},
   author={Shvetsova, Nina and Kukleva, Anna and Hong, Xudong and Rupprecht, Christian and Schiele, Bernt and Kuehne, Hilde},
-  journal={ECCV},
-  year={2024}
+  booktitle={European Conference on Computer Vision},
+  year={2024},
+  organization={Springer}
 }
 ```
